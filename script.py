@@ -2,6 +2,7 @@ import csv
 import gzip
 import numpy as np
 import pandas as pd
+from rdkit import chem
 
 train_filename = '../train.csv.gz'
 test_filename = '../test.csv.gz'

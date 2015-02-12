@@ -25,7 +25,8 @@ with gzip.open(train_filename, 'r') as train_fh:
         smiles   = row[0]
         features = np.array([float(x) for x in row[1:257]])
         gap      = float(row[257])
-        print gap
+        print(smiles)
+        print""
         
         train_data.append({ 'smiles':   smiles,
                             'features': features,
@@ -33,9 +34,9 @@ with gzip.open(train_filename, 'r') as train_fh:
         counter += 1
 
 # Compute the mean of the gaps in the training data.
-w = np.linalg.solve(np.dot(Phi.T, Phi) , np.dot(Phi.T, Y))
-#gaps = np.array([datum['gap'] for datum in train_data])
-#mean_gap = np.mean(gaps)
+#w = np.linalg.solve(np.dot(Phi.T, Phi) , np.dot(Phi.T, Y))
+gaps = np.array([datum['gap'] for datum in train_data])
+mean_gap = np.mean(gaps)
 
 # Load the test file.
 test_data = []
