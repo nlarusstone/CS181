@@ -34,7 +34,7 @@ with gzip.open(train_filename, 'r') as train_fh:
 
 # Compute the mean of the gaps in the training data.
 w = np.linalg.solve(np.dot(Phi.T, Phi) , np.dot(Phi.T, Y))
-gaps = np.array([datum['gap'] for datum in train_data])
+#gaps = np.array([datum['gap'] for datum in train_data])
 #mean_gap = np.mean(gaps)
 
 # Load the test file.
