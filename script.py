@@ -2,7 +2,10 @@ import csv
 import gzip
 import numpy as np
 import pandas as pd
-from rdkit import chem
+import sklearn as sk
+
+#from rdkit import Chem
+#from rdkit import DataStructs
 
 
 # def lasso_err(w, phi, t, lam):
@@ -20,7 +23,11 @@ train_data = []
 with gzip.open(train_filename, 'r') as train_fh:
 
     # Parse it as a CSV file.
-    train_df = pd.read_csv(train_fh, quotechar='"')
+    train_df = pd.read_csv(train_fh, quotechar='"',nrows=1000)
+    #smiles = train_df.iloc[:, 0]
+    #for m in smiles:
+    #    mol = Chem.MolFromSmiles(m)
+    #print(smiles)
 
 print 'done reading data'
 phi = train_df.iloc[:, 1:-1]
@@ -31,7 +38,7 @@ N = phi.shape[0]
 S = 3.0
 best_lam = None
 best_rmse = 100
-for lam in np.linspace(0.23, 0.27, 5):
+for lam in np.linspace(0.0001, 0.1, 5):
     rmse_sum = 0
     for test in xrange(int(S)):
         lt_test_bnd = int(test*N/S)
@@ -61,7 +68,7 @@ w = np.linalg.solve(left, right)
 # Load the test file.
 with gzip.open(test_filename, 'r') as test_fh:
 
-    test_df = pd.read_csv(test_fh, quotechar='"')
+    test_df = pd.read_csv(test_fh, quotechar='"',nrows=1000)
 
 test_phi = test_df.iloc[:, 2:]
 test_phi['const'] = 1
